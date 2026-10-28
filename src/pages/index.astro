@@ -7,21 +7,19 @@ const featured = posts.find(p => p.data.featured) || posts[0];
 const recent = posts.filter(p => p.id !== featured?.id).slice(0, 3);
 const faqs = [
   ['Where should I start?', 'Start with the exchange basics guide, then explore the questions that match your property and plans.'],
-  ['Are these guides free to read?', 'Yes. Every article is available without a form, subscription, or account.'],
-  ['Who writes the articles?', 'Shant Tchakerian writes the Maximize 1031 journal for investment property owners.'],
   ['Do you cover California questions?', 'Yes. The journal includes California reporting considerations, ownership structures, and property loss topics.'],
   ['Is an article advice for my transaction?', 'No. The journal is educational. Your CPA, attorney, and qualified intermediary should evaluate your specific circumstances.'],
-  ['How can I get in touch?', 'Call (818) 482-2707 or email info@maximize1031.com. There is no intake form to complete.'],
+  ['How can I get in touch?', 'Call (818) 482-2707 or email info@maximize1031.com.'],
 ];
 ---
-<Layout title="1031 exchange guides for property owners" description="Practical 1031 exchange guides for investment property owners. Explore replacement property, California considerations, exchange funds, and ownership planning." schema={{'@context':'https://schema.org','@type':'Organization',name:'Maximize 1031',url:Astro.site?.href,email:'info@maximize1031.com',telephone:'+1-818-482-2707'}}>
+<Layout title="1031 exchange guides" description="Practical 1031 exchange guides. Explore replacement property, California considerations, exchange funds, and ownership planning." schema={{'@context':'https://schema.org','@type':'Organization',name:'Maximize 1031',url:Astro.site?.href,email:'info@maximize1031.com',telephone:'+1-818-482-2707'}}>
   <section class="hero wrap">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="status-dot"></span> The property owner’s journal</p>
+      <p class="eyebrow"><span class="status-dot"></span> The 1031 journal</p>
       <h1>Understand your<br/>1031 exchange.<br/><span>Plan your next move.</span></h1>
-      <p class="hero-description">Clear explanations for investment property owners. Explore the fundamentals, the planning questions, and the details worth discussing before you sell.</p>
+      <p class="hero-description">Explore the fundamentals, the planning questions, and the details worth discussing before you sell.</p>
       <a class="button" href="/blog">Explore the guides <span aria-hidden="true">↗</span></a>
-      <p class="hero-note">Written by Shant Tchakerian <span>·</span> Free to read</p>
+      <p class="hero-note">Written by Shant Tchakerian <span>·</span></p>
     </div>
     <div class="hero-feature">{featured && <PostCard post={featured} featured/>}</div>
   </section>
@@ -34,7 +32,7 @@ const faqs = [
     <ol class="reading-path">
       <li><span class="step">01</span><h3>Get the fundamentals</h3><p>Build a foundation before exploring a more specific question.</p>{featured && <a href={postUrl(featured)}>Read the basics <span aria-hidden="true">↗</span></a>}</li>
       <li><span class="step">02</span><h3>Explore your situation</h3><p>Find perspectives on California property, ownership, and reinvestment.</p><a href="/blog">Browse the journal <span aria-hidden="true">↗</span></a></li>
-      <li><span class="step">03</span><h3>Start a conversation</h3><p>Bring your questions to your advisers. Reach out if you would like to connect.</p><a href="/contact">Get in touch <span aria-hidden="true">↗</span></a></li>
+      <li><span class="step">03</span><h3>Start a conversation</h3>Reach out if you would like to connect.</p><a href="/contact">Get in touch <span aria-hidden="true">↗</span></a></li>
     </ol>
   </section>
   <section class="tagline-section wrap" aria-label="Our perspective"><p class="eyebrow">Perspective before paperwork</p><p class="tagline">{['Good','decisions','start','with'].map(w => <span class="tagline-word">{w} </span>)}<br/>{['a','clearer','understanding.'].map(w => <span class="tagline-word">{w} </span>)}</p></section>
