@@ -1,0 +1,15 @@
+---
+import { description, postUrl, readTime, dateLabel, topic, type Post } from '../lib/posts';
+interface Props { post: Post; featured?: boolean; }
+const { post, featured = false } = Astro.props;
+const Heading = featured ? 'h2' : 'h3';
+---
+<article class:list={['post-card', { 'featured-card': featured }]}>
+  {featured && <div class="feature-art" aria-hidden="true"><span class="art-label">The fundamentals</span><div class="building"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="art-number">1031</span></div>}
+  <div class="post-card-content">
+    <p class="eyebrow">{featured ? 'Start here' : topic(post)} <span>·</span> {readTime(post)} min read</p>
+    <Heading><a href={postUrl(post)}>{post.data.title}</a></Heading>
+    <p class="post-summary">{description(post)}</p>
+    <div class="post-card-bottom"><time datetime={post.data.date.toISOString()}>{dateLabel(post.data.date)}</time><a class="read-link" href={postUrl(post)} aria-label={`Read ${post.data.title}`}>Read guide <span aria-hidden="true">↗</span></a></div>
+  </div>
+</article>

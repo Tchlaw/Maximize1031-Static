@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { publishedPosts, topic, description } from '../../lib/posts';
+const posts = await publishedPosts();
+const categories = [...new Set(posts.map(topic))];
+---
+<Layout title="The journal: 1031 exchange articles" description="Browse practical articles by Shant Tchakerian on 1031 exchanges, California property, replacement property, and ownership planning.">
+  <section class="wrap page-hero"><p class="eyebrow">The Maximize 1031 journal</p><h1>Clarity for your<br/>next property decision.</h1><p>Practical explanations. Thoughtful planning questions.<br/>A useful place to start before your next conversation.</p></section>
+  <section class="wrap archive-section" aria-labelledby="archive-title"><h2 id="archive-title" class="sr-only">All guides</h2>
+    <form class="search-form" role="search" onsubmit="return false"><label for="search">Find a guide</label><input id="search" type="search" placeholder="Search titles, topics, or questions" autocomplete="off" aria-controls="article-list"/></form>
+    <div class="archive-toolbar"><div class="topic-filters" role="group" aria-label="Filter articles by topic"><button type="button" class="filter" aria-pressed="true" data-topic="all">All articles</button>{categories.map(category => <button type="button" class="filter" aria-pressed="false" data-topic={category}>{category}</button>)}</div><p id="result-count" aria-live="polite">{posts.length} articles</p></div>
+    <div id="article-list" class="archive-grid">{posts.map(post => <div data-article data-topic={topic(post)} data-search={`${post.data.title} ${description(post)} ${post.data.tags.join(' ')}`.toLowerCase()}><PostCard post={post}/></div>)}</div>
+    <div id="no-results" class="empty-state" hidden><h2>No guides match that search.</h2><p>Try a broader term such as “California” or “property”.</p><button type="button" class="button" id="clear-search">Show all articles</button></div>
+  </section>
+  <script>
+    let selected = 'all';
+    const search = document.querySelector<HTMLInputElement>('#search');
+    const filters = document.querySelectorAll<HTMLButtonElement>('[data-topic].filter');
+    function update() {
+      const query = search?.value.trim().toLowerCase() || ''; let count = 0;
+      document.querySelectorAll<HTMLElement>('[data-article]').forEach(el => {
+        el.hidden = !((selected === 'all' || selected === el.dataset.topic) && (el.dataset.search || '').includes(query));
+        if (!el.hidden) count++;
+      });
+      const status = document.querySelector('#result-count'); if (status) status.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
+      const empty = document.querySelector<HTMLElement>('#no-results'); if (empty) empty.hidden = count !== 0;
+      filters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.topic === selected)));
+    }
+    search?.addEventListener('input', update);
+    filters.forEach(button => button.addEventListener('click', () => {selected = button.dataset.topic || 'all'; update();}));
+    document.querySelector('#clear-search')?.addEventListener('click', () => {if(search) search.value = ''; selected = 'all'; update(); search?.focus();});
+  </script>
+</Layout>

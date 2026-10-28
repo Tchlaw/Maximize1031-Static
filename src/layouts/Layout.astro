@@ -1,0 +1,83 @@
+---
+import '@fontsource/geist/400.css';
+import '@fontsource/geist/500.css';
+import '@fontsource/geist/600.css';
+import '@fontsource/geist/700.css';
+import '@fontsource/geist/700-italic.css';
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+interface Props { title: string; description: string; noindex?: boolean; type?: 'website' | 'article'; schema?: Record<string, unknown>; }
+const { title, description, noindex = false, type = 'website', schema } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site);
+const fullTitle = `${title} | Maximize 1031`;
+const image = new URL('/social.jpg', Astro.site);
+const path = Astro.url.pathname;
+const nav = [{href:'/',label:'Home'}, {href:'/blog',label:'The journal'}, {href:'/#about',label:'About'}, {href:'/contact',label:'Get in touch'}];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{fullTitle}</title><meta name="description" content={description}/>
+  <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'}/>
+  <link rel="canonical" href={canonical}/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <meta property="og:title" content={fullTitle}/><meta property="og:description" content={description}/>
+  <meta property="og:type" content={type}/><meta property="og:url" content={canonical}/>
+  <meta property="og:site_name" content="Maximize 1031"/><meta property="og:image" content={image}/>
+  <meta property="og:image:alt" content="Maximize 1031. Understand your exchange. Plan your next move."/>
+  <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={fullTitle}/>
+  <meta name="twitter:description" content={description}/><meta name="twitter:image" content={image}/>
+  <link rel="alternate" type="application/rss+xml" title="Maximize 1031 journal" href="/rss.xml"/>
+  <slot name="head"/>
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <Logo/>
+    <nav class="desktop-nav" aria-label="Main navigation">{nav.map(item => <a href={item.href} aria-current={(item.href === '/' ? path === '/' : item.href === '/blog' ? path.startsWith('/blog') : path === item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+  </header>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>{nav.map(item => <a href={item.href} aria-current={(item.href === '/' ? path === '/' : item.href === '/blog' ? path.startsWith('/blog') : path === item.href) ? 'page' : undefined}>{item.label}</a>)}<a href="tel:+18184822707">(818) 482-2707</a></nav>
+  <main id="main" tabindex="-1"><slot/></main>
+  <footer class="site-footer wrap">
+    <div class="footer-top"><div><Logo/><p>Perspective for your next property decision.</p></div><div class="footer-links"><a href="/blog">The journal</a><a href="/contact">Contact</a><a href="/privacy">Privacy policy</a><a href="/terms">Terms of use</a></div></div>
+    <div class="footer-bottom"><p>© {new Date().getFullYear()} Maximize 1031</p><p>Educational information only. Maximize 1031 does not provide tax, legal, or investment advice. Consult your qualified advisers about your circumstances.</p></div>
+  </footer>
+  <script>
+    const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+    const menu = document.querySelector<HTMLElement>('#mobile-nav');
+    const setOpen = (open: boolean) => {
+      if (!menu || !toggle) return;
+      menu.hidden = !open; toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      document.body.classList.toggle('menu-open', open);
+    };
+    toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { setOpen(false); toggle.focus(); }
+      if (e.key === 'Tab' && toggle?.getAttribute('aria-expanded') === 'true' && menu) {
+        const items = [toggle, ...menu.querySelectorAll<HTMLAnchorElement>('a')];
+        const first = items[0], last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    matchMedia('(min-width: 768px)').addEventListener('change', e => { if (e.matches) setOpen(false); });
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      }), { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); el.classList.add('reveal-ready'); });
+      document.querySelectorAll<HTMLElement>('.tagline-word').forEach((el, index) => {
+        const words = new IntersectionObserver(entries => entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('word-active'); words.unobserve(entry.target); }
+        }), { rootMargin: `0px 0px -${20 + index * 2}% 0px`, threshold: 1 });
+        el.style.transitionDelay = `${Math.min(index * 60, 400)}ms`;
+        words.observe(el); el.classList.add('word-ready');
+      });
+    }
+  </script>
+</body>
+</html>
