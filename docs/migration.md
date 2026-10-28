@@ -40,3 +40,15 @@ improves crawlability, consistency, and usability; traffic and lead effects requ
 Existing financial/tax claims were not independently verified in this migration. Dates were not
 artificially refreshed. Review older articles and cite IRS and California FTB sources before making
 substantive updates. Do not add testimonials or credentials without evidence.
+
+## Existing Vercel project
+
+Project: https://vercel.com/maximize-1031/v0-maximize-site-clone
+
+Retain this project and its domains. The checked-in `vercel.json` selects Astro,
+`npm ci`, `npm run build`, `dist`, clean URLs, and no trailing slash.
+Set the Vercel project Node.js version to 24.x. Review the branch deployment
+before merging to main, because that merge may automatically publish production.
+The connected GitHub integration currently reports no push permission, and the
+local Git remote has no HTTPS credentials. No branch was pushed or PR opened.
+Vercel's browser session also currently requires login.
