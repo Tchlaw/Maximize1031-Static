@@ -1144,3 +1144,12 @@ h2 {
 .hero h1 > span { display: inline-block; max-width: 100%; text-wrap: balance; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Stacked Buttons */
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* keeps buttons content-width; use stretch for equal width */
+  gap: 16px;
+}
