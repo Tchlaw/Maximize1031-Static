@@ -78,3 +78,7 @@ Banks may balk while an EAT is on title. Common solutions: **bridge loans**, **s
 
 **Need a reverse plan?**  
 👉 [Schedule a consult](/contact) to structure timelines and financing.
+
+## Planning an exchange across several properties?
+
+See [The 1031 Exchange Playbook for Real Estate Portfolios](/blog/2026-11-10-1031-exchange-strategy-for-real-estate-portfolios) for a guide to consolidation, diversification, multiple-sale deadlines and reverse exchanges.

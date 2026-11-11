@@ -7,6 +7,8 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string().min(1), date, updated: date.optional(), lastModified: date.optional(),
     description: z.string().optional(), summary: z.string().optional(), excerpt: z.string().optional(),
+    authorBio: z.string().optional(),
+    faq: z.array(z.object({ question: z.string().min(1), answer: z.string().min(1) })).default([]),
     author: z.string().default('Shant Tchakerian'), category: z.string().default('1031-exchanges'),
     tags: z.array(z.string()).default([]), featured: z.boolean().default(false),
     draft: z.boolean().default(false), relatedPosts: z.array(z.string()).default([]),

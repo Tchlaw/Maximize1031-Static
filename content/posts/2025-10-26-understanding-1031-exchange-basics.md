@@ -76,3 +76,6 @@ Any funds or debt not reinvested is considered **boot**, which is generally taxa
 
 ---
 
+## Planning an exchange across several properties?
+
+See [The 1031 Exchange Playbook for Real Estate Portfolios](/blog/2026-11-10-1031-exchange-strategy-for-real-estate-portfolios) for a guide to consolidation, diversification, multiple-sale deadlines and reverse exchanges.
