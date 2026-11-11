@@ -55,8 +55,6 @@
 }
 ---
 
-Most 1031 exchange guides assume one sale and one purchase. But if you own several properties, the questions are different: _Which_ assets should you trade? In what order? How do you line up the deadlines when three closings are moving at once? And how do you buy the property you really want before someone else does?
-
 This guide is for owners who think about their real estate as a portfolio rather than a collection of individual deals.
 
 **The short answer:** A portfolio 1031 strategy treats each exchange as a rebalancing move. You sell the properties that have stopped earning their keep — because the value-add is finished, or because too much equity is trapped in a low-yielding trophy asset — and reinvest the proceeds into properties that better fit your goals, deferring both capital gains tax and depreciation recapture. Success comes down to three things: choosing the right structure (one-for-many, many-for-one, or a reverse exchange), controlling which 45- and 180-day clock you are on, and lining up replacement properties _before_ you sell.
