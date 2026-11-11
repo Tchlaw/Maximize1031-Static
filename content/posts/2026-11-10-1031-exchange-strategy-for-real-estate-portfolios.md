@@ -6,7 +6,7 @@
   "metaTitle": "1031 Exchange Strategy for Real Estate Portfolios",
   "metaDescription": "How to use 1031 exchanges to trade assets across a real estate portfolio — many-for-one, one-for-many, reverse exchanges, timing rules and California issues.",
   "author": "Shant Tchakerian",
-  "authorBio": "Shant Tchakerian is a former attorney with a background in patent, transactional and tax law. He helps property owners coordinate 1031 exchanges through Maximize 1031.",
+  "authorBio": "Shant Tchakerian helps property owners coordinate 1031 exchanges through Maximize 1031.",
   "category": "1031-exchanges",
   "tags": [
     "1031 exchange",
