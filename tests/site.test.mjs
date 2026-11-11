@@ -60,7 +60,8 @@ test('SEO metadata uses one canonical host and valid structured data', () => {
   }
   assert.ok(fs.statSync(path.join(root,'social.jpg')).size > 1000);
   const sitemap = fs.readFileSync(path.join(root,'sitemap.xml'),'utf8');
-  assert.equal((sitemap.match(/<loc>/g) || []).length, 18);
+  const publishedArticleCount = files.filter(file => file.path.includes(`${path.sep}blog${path.sep}`) && !file.path.endsWith(`${path.sep}blog${path.sep}index.html`)).length;
+  assert.equal((sitemap.match(/<loc>/g) || []).length, publishedArticleCount + 6);
   assert.match(fs.readFileSync(path.join(root,'404.html'),'utf8'), /noindex, follow/);
 });
 
